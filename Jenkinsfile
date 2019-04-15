@@ -17,7 +17,8 @@ int cleanUp() {
       # Clean up PRODUCT directory keeping the common stuff
       # mkdir -p $OUT
       # rm -rf $(cd $OUT/../;pwd)
-      # make clean
+      make clean
+      make clobber
       # Clean up temporary incoming directory
       rm -rf $INCOMING_TMP_DIR
       ''')
