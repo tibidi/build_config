@@ -279,6 +279,7 @@ node('builder') {
         }
         stage('Code syncing') {
           if ( env.SYNC == 'true' ) {
+            
             def rc = sh (returnStatus: true, script: '''#!/usr/bin/env bash
                       rm -f .repo/local_manifests/local.xml
                       mkdir -p ../diff/$BRANCH
@@ -322,7 +323,7 @@ node('builder') {
               if (env.PUBLISH_BUILD == 'true') {
                   echo 'Publishing...'
                   sh returnStdout: false, script: 'rsync -a -e ssh --include "*.zip*" --exclude="*.img" --exclude="*.prop" . builds@mirror:./$BRANCH/$DEVICE/'
-                  publishToPortal("https://builds.unlegacy-android.org/"+env.BRANCH+"/"+env.DEVICE)
+                  // publishToPortal("https://builds.unlegacy-android.org/"+env.BRANCH+"/"+env.DEVICE)
               } else
                   echo 'Will not publish anything because PUBLISH_BUILD=false'
             }
