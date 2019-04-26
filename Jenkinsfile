@@ -281,6 +281,7 @@ node('builder') {
           if ( env.SYNC == 'true' ) {
             
             def rc = sh (returnStatus: true, script: '''#!/usr/bin/env bash
+                      cd /unlegacy/$BRANCH
                       rm -f .repo/local_manifests/local.xml
                       mkdir -p ../diff/$BRANCH
                       repo diff > ../diff/$BRANCH/repo.$BUILD_NUMBER.diff
