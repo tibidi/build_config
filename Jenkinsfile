@@ -279,6 +279,9 @@ node('builder') {
         }
         stage('Code syncing') {
           if ( env.SYNC == 'true' ) {
+            rm -f .repo/local_manifests/local.xml
+            mkdir -p ../diff/$BRANCH
+            repo diff > ../diff/$BRANCH/repo.$BUILD_NUMBER.diff
             checkout poll: false, scm: [$class: 'RepoScm', currentBranch: true, 
                           destinationDir: '/unlegacy/'+env.BRANCH, forceSync: true, jobs: 8, manifestBranch: env.BRANCH, manifestRepositoryUrl: 'https://github.com/Unlegacy-Android/android.git', noTags: true, 
                           quiet: true,
