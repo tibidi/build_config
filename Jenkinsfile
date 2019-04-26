@@ -279,7 +279,11 @@ node('builder') {
         }
         stage('Code syncing') {
           if ( env.SYNC == 'true' ) {
-            checkout poll: false, scm: [$class: 'RepoScm', currentBranch: true, destinationDir: '/unlegacy/'+env.BRANCH, forceSync: true, jobs: 8, manifestBranch: env.BRANCH, manifestRepositoryUrl: 'https://github.com/Unlegacy-Android/android.git', noTags: true, quiet: true]
+            checkout poll: false, scm: [$class: 'RepoScm', currentBranch: true, 
+                          destinationDir: '/unlegacy/'+env.BRANCH, forceSync: true, jobs: 8, manifestBranch: env.BRANCH, manifestRepositoryUrl: 'https://github.com/Unlegacy-Android/android.git', noTags: true, 
+                          quiet: true,
+                          localManifest: 'https://raw.githubusercontent.com/tibidi/nexus5x_manifests/master/local.xml'                                        
+                          ]
             // TODO: Create a saveManifest()
             ret = repoPickGerritChanges()
             if ( ret != 0 )
