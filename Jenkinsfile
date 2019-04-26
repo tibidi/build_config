@@ -284,7 +284,7 @@ node('builder') {
                       cd /unlegacy/$BRANCH
                       rm -f .repo/local_manifests/local.xml
                       mkdir -p ../diff/$BRANCH
-                      repo diff > ../diff/$BRANCH/repo.$BUILD_NUMBER.diff
+                      repo diff > ../diff/$BRANCH/repo.$BUILD_NUMBER.before.diff
                 ''')
             
             checkout poll: false, scm: [$class: 'RepoScm', currentBranch: true, 
@@ -296,6 +296,11 @@ node('builder') {
             ret = repoPickGerritChanges()
             if ( ret != 0 )
                error('Gerrit picks failed.')
+            
+            def rc = sh (returnStatus: true, script: '''#!/usr/bin/env bash
+                      cd /unlegacy/$BRANCH
+                      repo diff > ../diff/$BRANCH/repo.$BUILD_NUMBER.after.diff
+                ''')            
           }
         }
         stage('Build process') {
