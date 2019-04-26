@@ -297,7 +297,7 @@ node('builder') {
             if ( ret != 0 )
                error('Gerrit picks failed.')
             
-            def rc = sh (returnStatus: true, script: '''#!/usr/bin/env bash
+            rc = sh (returnStatus: true, script: '''#!/usr/bin/env bash
                       cd /unlegacy/$BRANCH
                       repo diff > ../diff/$BRANCH/repo.$BUILD_NUMBER.after.diff
                 ''')            
