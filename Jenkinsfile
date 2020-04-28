@@ -100,7 +100,14 @@ int build(String buildTargets) {
 
       OTATOOLS_TARGET=otatools
 
-      time make -j$JOBS $BUILD_TARGETS $OTATOOLS_TARGET
+      if [ ! -z "$BUILD_JOB" ] 
+      then
+        time make -j$BUILD_JOB $BUILD_TARGETS $OTATOOLS_TARGET
+      else
+        time make -j$JOBS $BUILD_TARGETS $OTATOOLS_TARGET
+      fi
+    
+      
       if [ "0" -ne "$?" ]
       then
         echo "Build failed."
