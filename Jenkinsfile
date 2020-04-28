@@ -102,6 +102,7 @@ int build(String buildTargets) {
 
       if [ ! -z "$BUILD_JOB" ] 
       then
+        echo "Build with $BUILD_JOB Jobs."
         time make -j$BUILD_JOB $BUILD_TARGETS $OTATOOLS_TARGET
       else
         time make -j$JOBS $BUILD_TARGETS $OTATOOLS_TARGET
